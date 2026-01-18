@@ -1,0 +1,8 @@
+
+// 4️⃣ App.vue
+<template>
+<router-view />
+</template>
+
+
+<script setup></script>
