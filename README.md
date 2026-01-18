@@ -19,15 +19,15 @@ Avant de commencer, installez ces outils :
 * [Python 3.10+](https://www.python.org/)
 * [Node.js (LTS)](https://nodejs.org/)
 * [Ollama](https://ollama.com/)
-* 
-### set up base de données
-Creer une base de données puis importez la base : "math_pour_tous.sql" contenu dans le dossier "backend"
----
+  ---
 
 ### 2. Configuration du Backend (Le Serveur)
 Ouvrez votre terminal et suivez ces étapes :
 
 ```bash
+### set up base de données
+Creer une base de données puis importez la base : "math_pour_tous.sql" contenu dans le dossier "backend"
+
 # Entrer dans le dossier
 cd backend
 
