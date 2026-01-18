@@ -19,7 +19,9 @@ Avant de commencer, installez ces outils :
 * [Python 3.10+](https://www.python.org/)
 * [Node.js (LTS)](https://nodejs.org/)
 * [Ollama](https://ollama.com/)
-
+* 
+### set up base de données
+Creer une base de données puis importez la base : "math_pour_tous.sql" contenu dans le dossier "backend"
 ---
 
 ### 2. Configuration du Backend (Le Serveur)
@@ -41,10 +43,6 @@ source venv/bin/activate
 # Installer les outils nécessaires
 pip install -r requirements.txt
 
-# Créer un fichier de configuration
-# Créez un fichier nommé ".env" et ajoutez votre clé API Gemini :
-# GOOGLE_API_KEY=votre_cle_ici
-
 # Lancer le serveur
 uvicorn main:app --reload
 
@@ -56,3 +54,7 @@ npm install
 
 # Lancer l'application
 npm run dev
+#######################################################################################################################################
+
+
+
