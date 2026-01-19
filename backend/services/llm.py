@@ -5,7 +5,7 @@ from google import genai
 # ⚠️ TEST LOCAL UNIQUEMENT
 # 👉 METS TA CLÉ ICI POUR TEST
 # ======================================================
-GEMINI_API_KEY = "AIzaSyCrB73oV-GfiSCd-a0K4xcuCAZBEuHfP7o"
+GEMINI_API_KEY = "API_CLE_ICIC"
 # ======================================================
 
 # -----------------------------
@@ -13,7 +13,7 @@ GEMINI_API_KEY = "AIzaSyCrB73oV-GfiSCd-a0K4xcuCAZBEuHfP7o"
 # -----------------------------
 def _get_gemini_client():
     return genai.Client(
-        api_key=GEMINI_API_KEY  # 👈 UTILISATION DIRECTE DE LA CLÉ
+        api_key=GEMINI_API_KEY  
     )
 
 # -----------------------------
