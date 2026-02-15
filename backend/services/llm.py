@@ -1,19 +1,12 @@
 import os
 from google import genai
 
-# ======================================================
-# ⚠️ TEST LOCAL UNIQUEMENT
-# 👉 METS TA CLÉ ICI POUR TEST
-# ======================================================
-GEMINI_API_KEY = "AIzaSyCrB73oV-GfiSCd-a0K4xcuCAZBEuHfP7o"
-# ======================================================
+GEMINI_API_KEY ="cle api de gemini ici"
 
-# -----------------------------
-# CLIENT FACTORY (IMPORTANT)
 # -----------------------------
 def _get_gemini_client():
     return genai.Client(
-        api_key=GEMINI_API_KEY  # 👈 UTILISATION DIRECTE DE LA CLÉ
+        api_key=GEMINI_API_KEY  
     )
 
 # -----------------------------
@@ -43,7 +36,6 @@ def clean_ai_output(text: str) -> str:
         "PLAN",
         "Bonjour",
         "Je suis ravi",
-        "programme ivoirien",
         "En tant qu'IA",
         "Voici la réponse"
     ]

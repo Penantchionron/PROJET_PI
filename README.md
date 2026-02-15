@@ -56,3 +56,7 @@ npm install
 
 # Lancer l'application
 npm run dev
+```
+### Resultat : présentation de la solution
+![alt text](IMG_README.png)
+![alt text](IMG_README_1.png)

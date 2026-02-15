@@ -50,7 +50,9 @@
           </div>
         </div>
       </header>
-
+     
+   <!-- ici -->
+    <!-- IA message -->
       <!-- Messages container -->
       <div class="flex-1 overflow-y-auto p-4 space-y-6 scrollbar-thin" ref="scrollContainer">
         <div v-for="msg in messages" :key="msg.id" class="max-w-4xl mx-auto w-full">
@@ -60,9 +62,10 @@
             <div class="w-8 h-8 rounded bg-gradient-to-br from-blue-600 to-cyan-500 flex-shrink-0 flex items-center justify-center text-[10px] font-bold shadow-md">IA</div>
             <div class="bg-[#161f32] border border-slate-800 rounded-2xl px-4 py-3 text-sm max-w-[85%] text-slate-200 leading-relaxed shadow-sm">
               
-              <!-- Title -->
-              <h2 class="text-lg font-bold text-blue-400 mb-2">{{ extractTitle(msg.content) }}</h2>
-
+              <!-- <h2 class="text-lg font-bold text-blue-400 mb-2">{{ extractTitle(msg.content) }}</h2> -->
+              <h2 class="text-lg font-bold mb-2":class="getMessageColor(extractTitle(msg.content))">
+              {{ extractTitle(msg.content) }}
+              </h2>
               <!-- Sections -->
               <div v-for="(content, key) in parseIAResponse(msg.content)" :key="key" class="mb-3">
                 <h3 class="font-semibold text-cyan-400 mb-1">{{ key }} :</h3>
@@ -258,7 +261,7 @@ const send = async () => {
 const handleLogout = () => {
   localStorage.removeItem("token")
   delete api.defaults.headers.common["Authorization"]
-  router.push("/login")
+  router.push("/")
 }
 
 const autoResize = () => {
@@ -300,10 +303,30 @@ const parseIAResponse = (text) => {
 
 const splitLines = (text) => text.split(/\n|;/).map(s => s.trim()).filter(Boolean)
 
+const getNiveau = () => user.value?.niveau ?? null
+
 const extractTitle = (text) => {
+  // 👉 Seulement si aucune réponse
+  if (!text || text.trim().length === 0) {
+    const niveau = getNiveau()
+    if (!niveau) return "Chargement du niveau en cours..."
+    return `Désolé, je suis un pédagogue qui vous aide uniquement sur les sujets correspondant à votre programme ou à un niveau inférieur. 
+    Ici, nous faisons uniquement des mathématiques de niveau ${niveau}.`
+  }
+
+  // 👉 Réponse normale
   const idx = text.indexOf("EXPLICATION")
-  if (idx > 0) return text.slice(0, idx).replace(":", "").trim()
-  return "Réponse IA"
+  if (idx !== -1) {
+    return text.slice(0, idx).replace(":", "").trim()
+  }
+
+  return text
+}
+
+const getMessageColor = (text) => {
+  return (!text || text.trim().length === 0)
+    ? "text-red-400"
+    : "text-blue-400"
 }
 </script>
 

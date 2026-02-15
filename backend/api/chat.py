@@ -137,6 +137,26 @@ def send_message(
 
     # 4. RAG & Analyse de niveau
     context = get_relevant_context(data.content, current_user.niveau)
+    # 🔒 Si aucun contexte trouvé → refus automatique
+    # if not context or context.strip() == "":
+    #     ai_text = f"Désolé, je suis un pédagogue qui vous aide sur les sujets faisant partie de votre programme ou d'un niveau inférieur à votre niveau pas plus pas moins. Ici on fait mathématiques de {current_user.niveau}."
+
+    #     assistant_msg = Message(
+    #         chat_id=chat.id,
+    #         role="assistant",
+    #         content=ai_text,
+    #         user_id=None
+    #     )
+
+    #     db.add(assistant_msg)
+    #     db.commit()
+
+    #     return (
+    #         db.query(Message)
+    #         .filter(Message.chat_id == chat.id)
+    #         .order_by(Message.created_at.asc())
+    #         .all()
+    #     )
     
     niveau_map = {"6ème": 6, "5ème": 5, "4ème": 4, "3ème": 3}
     user_level_num = niveau_map.get(current_user.niveau, 6)
@@ -155,14 +175,14 @@ def send_message(
     if not question_is_maths:
         prompt = f"Réponds poliment que tu es un prof de maths et que tu ne peux répondre qu'aux questions de mathématiques. Question: {data.content}"
     elif question_out_of_level:
-        prompt = f"L'élève est en {current_user.niveau}. La question semble trop complexe. Explique les bases liées à cette question adaptées à son niveau. Contexte: {context} Question: {data.content}"
+        prompt = f"L'élève est en {current_user.niveau}. Dis tu reponds seulement aux questions de mathématiques qui font partir du programme de son niveau Contexte: {context} Question: {data.content}"
     else:
         prompt = f"""Tu es un professeur de mathématiques sérieux (Programme Ivoirien). 
-Niveau de l'élève: {current_user.niveau}.
-Règles: Pas de blabla, pas de salutations.
-Structure: EXPLICATION, EXEMPLE, EXERCICE, CORRECTION.
-CONTEXTE: {context}
-QUESTION: {data.content}"""
+                Niveau de l'élève: {current_user.niveau}.
+                Règles: Pas de blabla, pas de salutations, refuse catégoriquement les questions de la physique de la chimie svt géographie francais, refuse catégoriquement les questions hors contexte, reponds seulement aux questions de mathématiques, si la question, le sujet ou la notion demandée ne fais pas partir de son programme dis lui non.
+                Structure: EXPLICATION, EXEMPLE, EXERCICE, CORRECTION.
+                CONTEXTE: {context}
+                QUESTION: {data.content}"""
 
     # 6. Génération et nettoyage
     try:
